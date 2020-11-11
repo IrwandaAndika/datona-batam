@@ -30,4 +30,5 @@ Route::get('/testimonials', 'HomeController@testimonials')->name('testimonials')
 Route::get('/team', 'HomeController@team')->name('team');
 Route::get('/partnerships', 'HomeController@partnerships')->name('partnerships');
 Route::get('/contact-us', 'HomeController@contact')->name('contact');
+Route::get('/admin-page', 'AdminPageController@page')->name('adminpage');
 
