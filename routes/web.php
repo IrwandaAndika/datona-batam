@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminPageController;
+use App\Http\Controllers\ImageController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 
 /*
@@ -17,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
@@ -36,18 +40,35 @@ Route::get('/contact-us', 'HomeController@contact')->name('contact');
 Route::get('/gallery', 'HomeController@gallery')->name('gallery');
 Route::get('/gallery/government', 'HomeController@gallery')->name('gallery.government');
 Route::get('/gallery/private', 'HomeController@gallery')->name('gallery.private');
-Route::get('/admin-page', 'AdminPageController@page')->name('adminpage');
 Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-// dashboard Testimonials
-Route::get('/testimonials-page', 'AdminPageController@testi')->name('admin.testimonials');
-Route::post('/testimonials/store', 'AdminPageController@testistore');
-Route::get('/testimonials/edit/{id}', 'AdminPageController@edit');
-Route::post('/testimonials/update', 'AdminPageController@update');
-Route::get('/testimonials/delete/{id}', 'AdminPageController@delete');
+// Dashboard Testimonials
+Route::get('/testimonials-page', 'TestimonialController@testi')->name('testimonials.page');
+Route::get('/testimonials-add', 'TestimonialController@add')->name('testimonials.add');
+Route::post('/testimonials-store', 'TestimonialController@testistore')->name('testimonials.store');
+Route::get('/testimonials-edit/{id}', 'TestimonialController@edit')->name('testimonials.edit');
+Route::post('/testimonials-update', 'TestimonialController@update')->name('testimonials.update');
+Route::get('/testimonials-delete/{id}', 'TestimonialController@delete')->name('testimonials.delete');
+Route::get('/testimonials-search', 'TestimonialController@search')->name('testimonials.search');
+// Dashboard Expertise
+Route::get('/expertises-page', 'ExpertiseController@index')->name('expertises.page');
+Route::get('/expertises-add', 'ExpertiseController@add')->name('expertises.add');
+Route::post('/expertises-store', 'ExpertiseController@store')->name('expertises.store');
+Route::get('/expertises-edit/{id}', 'ExpertiseController@edit')->name('expertises.edit');
+Route::post('/expertises-update', 'ExpertiseController@update')->name('expertises.update');
+Route::get('/expertises-delete/{id}','ExpertiseController@delete')->name('expertises.delete');
 // Dashboard Cases
+Route::get('/cases-page', 'CasesController@index')->name('cases-page');
+Route::get('/cases-add', 'CasesController@add')->name('cases-add');
+Route::post('/cases-store', 'CasesController@store')->name('cases-store');
+Route::get('/cases-edit/{id}', 'CasesController@edit')->name('cases-edit');
+Route::post('/cases-update', 'CasesController@update')->name('cases-update');
+Route::get('/cases-delete/{id}', 'CasesController@delete')->name('cases-delete');
+// Admin Auth
 Route::prefix('admin')->group(function () {
     // Dashboard Route
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/profile', 'AdminController@profile')->name('admin.dashboard.profile');
+    Route::post('/upload', 'AdminController@upload')->name('admin.dashboard.upload');
     // Login Route
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
@@ -56,5 +77,10 @@ Route::prefix('admin')->group(function () {
     // Route Register
     Route::get('/register', 'Auth\AdminRegisterController@showRegistrationForm')->name('admin.register');
     Route::post('/register', 'Auth\AdminRegisterController@register')->name('admin.register.submit');
+    // Route Password Reset
+    Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+    Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+    Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
 });
 
