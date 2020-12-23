@@ -75,6 +75,38 @@
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
                         @endif
+                    
+                    {{-- @else --}}
+                    {{-- @if (\Illuminate\Support\Facades\Auth::guard('admin')->check())
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-item" href="{{ route('admin.logout') }}">
+                                    onclick="event.preventDefault();
+                                                document.getElemenyById('admin.logout.form').submit();"
+                                    {{ _('logout') }}
+                                </a>
+
+                                <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" style="...">
+                                    @csrf
+                                </form>
+                            </li> 
+                        </div>
+                    @else
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-item" href="{{ route('user.logout') }}">
+                                    onclick="event.preventDefault();
+                                                document.getElemenyById('user.logout.form').submit();"
+                                    {{ _('logout') }}
+                                </a>
+
+                                <form id="user-logout-form" action="{{ route('user.logout') }}" method="POST" style="...">
+                                    @csrf
+                                </form>
+                            </li> 
+                        </div>
+                    @endif --}}
+                   
                     @endauth
                 </div>
             @endif
