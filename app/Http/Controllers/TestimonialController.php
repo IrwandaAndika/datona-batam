@@ -9,9 +9,14 @@ use App\Testimonial;
 
 class TestimonialController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
 	public function testi()
 	{
-		$testimonials = Testimonial::get();
+		$testimonials = Testimonial::paginate(3);
 		return view('dashboard.testimonial.testimonials', compact('testimonials'));
 	}
 
@@ -33,7 +38,7 @@ class TestimonialController extends Controller
 
         $upload->save();
 
-		return redirect('/testimonials-page');
+		return redirect('/testimonials-page')->with('massage','Data Successfully Added');
  
     }
 
@@ -46,7 +51,7 @@ class TestimonialController extends Controller
 
 	public function update(Request $request)
 	{
-		$testimonials = Testimonial::where('id', $request->id)->update([
+		Testimonial::where('id', $request->id)->update([
 			'author' => $request->author,
 			'company' => $request->company,
 			'description' => $request->description,
@@ -57,12 +62,9 @@ class TestimonialController extends Controller
 	}
 
 	// Delete data Testimonials
-    public function delete($id) {
-	
-		// menghapus data testimonials berdasarkan id yang dipilih
+	public function delete($id)
+	{
 		Testimonial::where('id',$id)->delete();
-			
-		// alihkan halaman ke halaman testimonials-page
 		return redirect('/testimonials-page');
 	}
 
