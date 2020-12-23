@@ -17,7 +17,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b></a>
+    <a href="../../index2.html"><b>Login</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -88,7 +88,7 @@
       </p>
       @endif
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.login-card-body -->
