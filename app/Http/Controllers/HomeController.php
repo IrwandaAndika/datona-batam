@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -33,17 +34,26 @@ class HomeController extends Controller
 
     public function expertise()
     {
-        return view('expertise');
+        // mengambil data dari table pegawai
+        $expertises = DB::table('expertises')->get();
+
+        // mengirim data pegawai ke view index
+        return view('expertise',['expertises' => $expertises]);
     }
 
     public function cases()
     {
-        return view('cases');
+        $cases = DB::table('cases')->get();
+        return view('cases', compact('cases'));
     }
 
     public function testimonials()
     {
-        return view('testimonials');
+        // mengambil data dari table pegawai
+        $testimonials = DB::table('testimonials')->get();
+
+        // mengirim data pegawai ke view index
+        return view('testimonials',['testimonials' => $testimonials]);
     }
 
     public function team()
@@ -61,6 +71,15 @@ class HomeController extends Controller
         return view('contact');
     }
 
+    public function gallery()
+    {
+        // mengambil data dari table pegawai
+        $galleries = DB::table('galleries')->get();
+
+        // mengirim data pegawai ke view index
+        return view('gallery',['galleries' => $galleries]);
+    }
+
     public function hcm()
     {
         return view('expertise.hcm');
@@ -75,4 +94,5 @@ class HomeController extends Controller
     {
         return view('expertise.headhunting');
     }
+
 }
