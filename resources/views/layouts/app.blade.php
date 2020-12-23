@@ -44,7 +44,7 @@
                                             <nav class="collapse">
                                                 <ul class="nav nav-pills" id="mainNav">
                                                     <li>
-                                                        <a class="nav-link {{ set_active('home') }}" href="{{ url('/') }}">
+                                                        <a class="nav-link {{ set_active('home') }}" href="{{ url('/home') }}">
                                                         Home
                                                         </a>
                                                     </li>
@@ -96,6 +96,23 @@
                                                         </a>
                                                     </li>
                                                     <li>
+                                                        <a class="nav-link {{ set_active('gallery') }}" href="{{ route('gallery') }}">
+                                                        Gallery
+                                                        </a>
+                                                        <ul class="dropdown-menu">
+															<li>
+																<a class="dropdown-item" href="{{ route('gallery.government') }}">
+																	Government
+																</a>
+															</li>
+															<li>
+																<a class="dropdown-item" href="{{ route('gallery.private') }}">
+																	Private
+																</a>
+															</li>
+														</ul>
+                                                    </li>
+                                                    <li>
                                                         <a class="nav-link {{ set_active('contact') }}" href="{{ route('contact') }}">
                                                         Contact Us
                                                         </a>
@@ -112,6 +129,17 @@
                                             <li class="social-icons-facebook"><a href="http://www.facebook.com/lpmibatam" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                                             <li class="social-icons-twitter"><a href="http://www.twitter.com/lpmibatam" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></li>
                                             <li class="social-icons-linkedin"><a href="http://www.linkedin.com/paimin-siahaan-se-m-hum-26557822" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+                                            <li>
+                                                @if (\Illuminate\Support\Facades\Auth::guard('web')->check())
+                                                <a class="dropdown-item" href="{{ route('user.logout') }}">
+                                                    <i class="fas fa-sign-out-alt"></i> {{ _('logout') }}
+                                                </a>
+                
+                                                <form id="user-logout-form" action="{{ route('user.logout') }}" method="GET" style="...">
+                                                    @csrf
+                                                </form>
+                                                @endif
+                                            </li> 
                                         </ul>
                                     </div>
                                 </div>
@@ -128,7 +156,7 @@
 					<div class="row">
 						<div class="col-lg-12 text-center pb-4">
 							<p>2020 ©  <span class="text-color-light">Datona Consulting</span> - Copyright All Rights Reserved</p>
-						</div>
+                        </div>
 					</div>
 				</div>
 			</footer>
