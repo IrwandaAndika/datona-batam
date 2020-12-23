@@ -2,21 +2,6 @@
 
 @section('content')
 <div class="slider-container rev_slider_wrapper" style="height: 100%;">
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-            <div class="top-right links">
-                @auth
-                    <a href="{{ url('/home') }}">Home</a>
-                @else
-                    <a href="{{ route('login') }}">Login</a>
-
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}">Register</a>
-                    @endif
-                @endauth
-            </div>
-        @endif
-    </div>
     <div id="revolutionSlider" class="slider rev_slider manual" data-version="5.4.8">
         <ul>
             <li data-transition="fade">
@@ -40,7 +25,7 @@
                     data-start="800"
                     data-transform_in="y:[-300%];opacity:0;s:500;" style="font-size: 42px;">HR Management and Industrial Relation</div>
 
-                <a href="#about-us" class="btn btn-primary tp-caption text-uppercase text-color-light custom-border-radius"
+                <a href="{{ route('login') }}" class="btn btn-primary tp-caption text-uppercase text-color-light custom-border-radius"
                     data-hash
                     data-hash-offset="85"
                     data-x="['left','left','left','left']" data-hoffset="['30','30','30','30']"
@@ -70,7 +55,7 @@
                     data-start="800"
                     data-transform_in="y:[-300%];opacity:0;s:500;" style="font-size: 42px;">Consultation</div>
 
-                <a href="#about-us" class="btn btn-primary tp-caption text-uppercase text-color-light custom-border-radius"
+                <a href="{{ route('login') }}" class="btn btn-primary tp-caption text-uppercase text-color-light custom-border-radius"
                     data-hash
                     data-hash-offset="85"
                     data-x="['left','left','left','left']" data-hoffset="['30','30','30','30']"
@@ -100,7 +85,7 @@
                     data-start="800"
                     data-transform_in="y:[-300%];opacity:0;s:500;" style="font-size: 42px;">Try Our Head Hunting Service</div>
 
-                <a href="#about-us" class="btn btn-primary tp-caption text-uppercase text-color-light custom-border-radius"
+                <a href="{{ route('login') }}" class="btn btn-primary tp-caption text-uppercase text-color-light custom-border-radius"
                     data-hash
                     data-hash-offset="85"
                     data-x="['left','left','left','left']" data-hoffset="['30','30','30','30']"
@@ -158,7 +143,7 @@
                             </ul>
                         </div>
                     </div>
-                    <a class="btn btn-outline custom-border-width btn-primary mt-3 mb-2 custom-border-radius font-weight-semibold text-uppercase" href="demo-business-consulting-about-us.html">Read More</a>
+                    <a class="btn btn-outline custom-border-width btn-primary mt-3 mb-2 custom-border-radius font-weight-semibold text-uppercase" href="/about-us">Read More</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">
@@ -259,7 +244,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <a class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase mb-3" href="demo-business-consulting-expertise.html" title="View All">View All</a>
+                <a class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase mb-3" href="/expertise" title="View All">View All</a>
             </div>
         </div>
     </div>
@@ -557,7 +542,7 @@
         </div>
         <div class="row text-center mt-5">
             <div class="col">
-                <a class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" href="demo-business-consulting-team.html">View All</a>
+                <a class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" href="/team">View All</a>
             </div>
         </div>
     </div>
