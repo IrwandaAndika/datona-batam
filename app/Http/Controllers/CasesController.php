@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use App\Cases;
 
 class CasesController extends Controller
@@ -36,7 +37,7 @@ class CasesController extends Controller
         $upload->type_id = $request->type_id;
         $upload->content = $file;
 
-        $content->move(public_path(). '/img', $file);
+        $request->file('content')->storeAs('img/cases', $file, 'public');
         $upload->save();
 
         return redirect('/cases-page')->with('massage','Data Successfully Added');
@@ -50,14 +51,20 @@ class CasesController extends Controller
 
     public function update(Request $request)
     {
-        Cases::where('id',$request->id)->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'type_id' => $request->type_id,
-            'content' => $request->content
-        ]);
+        if ($request->hasFile('content')) {
+			$img = $request->content;
+			$filename = $img->getClientOriginalName();
+			Storage::delete('/public/img/cases/' . $request->hasFile('content'));
+			$request->content->storeAs('img/cases', $filename, 'public');
+		}
+		Cases::where('id', $request->id)->update([
+			'name' => $request->name,
+			'description' => $request->description,
+			'type_id' => $request->type_id,
+			'content' => $request->content
+		]);
 
-        return redirect('/cases-page');
+        return redirect('/cases-page')->with('massage','Data Successfully Edited');
     }
 
     public function delete($id)

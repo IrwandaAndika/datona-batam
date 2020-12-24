@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use App\Testimonial;
 
 class TestimonialController extends Controller
@@ -34,8 +35,9 @@ class TestimonialController extends Controller
         $upload->author = $request->author;
         $upload->company = $request->company;
         $upload->description = $request->description;
-        $upload->image = $img;
-
+		$upload->image = $img;
+		
+		$request->file('image')->storeAs('img/testimonials', $img, 'public');
         $upload->save();
 
 		return redirect('/testimonials-page')->with('massage','Data Successfully Added');
@@ -51,14 +53,23 @@ class TestimonialController extends Controller
 
 	public function update(Request $request)
 	{
+		if ($request->hasFile('image')) {
+			$img = $request->image;
+			$filename = $img->getClientOriginalName();
+			if (Testimonial::where('id',$request->id)->hasFile('image')) {
+				Storage::delete('/public/img/testimonials/' . $request->hasFile('image'));
+			}
+			$request->image->storeAs('img/testimonials', $filename, 'public');
+		};
+
 		Testimonial::where('id', $request->id)->update([
 			'author' => $request->author,
 			'company' => $request->company,
 			'description' => $request->description,
 			'image' => $request->image
 		]);
-		
-		return redirect('/testimonials-page');
+
+		return redirect('/testimonials-page')->with('massage','Data Successfully Edited');
 	}
 
 	// Delete data Testimonials

@@ -26,7 +26,7 @@
                 <div class="col">
                     <div class="feature-box custom-feature-box custom-feature-box-active feature-box-style-2">
                         <div class="feature-box-icon">
-                            <img src="img/{{ $ex->image }}" alt="">
+                            <img src="{{ asset('/storage/img/expertises/'. $ex->image) }}" alt="">
                         </div>
                         <div class="feature-box-info ml-3">
                             <h4 class="font-weight-normal text-5">{{ $ex->title }}</h4>

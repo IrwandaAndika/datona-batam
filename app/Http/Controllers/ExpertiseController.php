@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use App\Expertise;
 
 class ExpertiseController extends Controller
@@ -38,7 +39,7 @@ class ExpertiseController extends Controller
       $upload->link = $request->link;
       $upload->image = $file;
 
-      $image->move(public_path().'/img', $file);
+      $request->file('image')->storeAs('img/expertises', $file, 'public');
       $upload->save();
 
       return redirect('/expertises-page')->with('massage','Data Successfully Added');
@@ -58,15 +59,22 @@ class ExpertiseController extends Controller
     public function update(Request $request) 
     {
       // update data Expertises
-      Expertise::where('id',$request->id)->update([
+      if ($request->hasFile('image')) {
+        $img = $request->image;
+        $filename = $img->getClientOriginalName();
+        Storage::delete('/public/img/expertises/' . $request->hasFile('image'));
+        $request->image->storeAs('img/expertises', $filename, 'public');
+      }
+      Expertise::where('id', $request->id)->update([
         'title' => $request->title,
         'content' => $request->content,
         'link' => $request->link,
-        'image' => $request->image->getClientOriginalName()
+        'image' => $request->image->getClientOriginalName(),
       ]);
+  
 
       // alihkan halaman ke halaman expertises-page
-      return redirect('/expertises-page');
+      return redirect('/expertises-page')->with('massage','Data Successfully Edited');
     
     }
 
