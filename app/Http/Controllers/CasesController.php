@@ -26,21 +26,33 @@ class CasesController extends Controller
         return view('dashboard.cases.cases-add');
     }
 
+    private function Validation(Request $request)
+    {
+        $validation = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'type_id' => 'required',
+            'content' => 'mimes:png,jpg,jpeg,svg'
+        ]);
+    }
+
     public function store(Request $request)
     {
+        $this->Validation($request);
+
         $content = $request->content;
         $file = $content->getClientOriginalName();
+        $cases = $request->file('content')->storeAs('img/cases' , $file , 'public');
 
         $upload = new Cases;
         $upload->name = $request->name;
         $upload->description = $request->description;
         $upload->type_id = $request->type_id;
-        $upload->content = $file;
+        $upload->content = $cases;
 
-        $request->file('content')->storeAs('img/cases', $file, 'public');
         $upload->save();
 
-        return redirect('/cases-page')->with('massage','Data Successfully Added');
+        return redirect('/cases-page')->with('massage','Data Created Successfully');
     }
 
     public function edit($id)
@@ -49,22 +61,33 @@ class CasesController extends Controller
         return view('dashboard.cases.cases-edit', compact('cases'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        if ($request->hasFile('content')) {
-			$img = $request->content;
-			$filename = $img->getClientOriginalName();
-			Storage::delete('/public/img/cases/' . $request->hasFile('content'));
-			$request->content->storeAs('img/cases', $filename, 'public');
+        $this->Validation($request);
+
+        $content = $request->content;
+        $file = $content->getClientOriginalName();
+
+        if ($request->file('content')) {
+			$image = $request->file('content')->storeAs('img/cases' , $file , 'public');
+			$cases = Cases::findOrfail($id);
+            if ($cases->content) {
+				Storage::delete('public/' . $cases->content);
+				$cases->content = $image;
+            } else {
+				$cases->content = $image;
+			}
+
+			$cases->save();
 		}
-		Cases::where('id', $request->id)->update([
-			'name' => $request->name,
-			'description' => $request->description,
-			'type_id' => $request->type_id,
-			'content' => $request->content
+		
+		Cases::findOrfail($id)->update([
+            'name' => $request->get('name'),
+            'description' => $request->get('description'),
+			'type_id' => $request->get('type_id')
 		]);
 
-        return redirect('/cases-page')->with('massage','Data Successfully Edited');
+        return redirect('/cases-page')->with('massage','Data Edited Successfully');
     }
 
     public function delete($id)

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\UploadedFile;
 use App\Testimonial;
 
 class TestimonialController extends Controller
@@ -26,21 +27,33 @@ class TestimonialController extends Controller
         return view('dashboard.testimonial.testimonial-add');
     }
 
-    public function testistore(Request $request) {
+	private function Validation(Request $request)
+	{
+		$validation = $request->validate([
+			'author' => 'required',
+			'company' => 'required',
+			'description' => 'required',
+			'image' => 'mimes:png,jpg,svg,jpeg'
+		]);
+	}
+	
+	public function testistore(Request $request) 
+	{
+		$this->Validation($request);
 
         $image = $request->image;
-        $img = $image->getClientOriginalName();
+		$img = $image->getClientOriginalName();
+		$testimonials = $request->file('image')->storeAs('img/testimonials' , $img , 'public');
 
         $upload = new Testimonial;
         $upload->author = $request->author;
         $upload->company = $request->company;
         $upload->description = $request->description;
-		$upload->image = $img;
+		$upload->image = $testimonials;
 		
-		$request->file('image')->storeAs('img/testimonials', $img, 'public');
         $upload->save();
 
-		return redirect('/testimonials-page')->with('massage','Data Successfully Added');
+		return redirect('/testimonials-page')->with('massage','Data Created Successfully');
  
     }
 
@@ -51,25 +64,33 @@ class TestimonialController extends Controller
 		return view('dashboard.testimonial.testimonial-edit', compact('testimonials'));
 	}
 
-	public function update(Request $request)
+	public function update(Request $request, $id)
 	{
-		if ($request->hasFile('image')) {
-			$img = $request->image;
-			$filename = $img->getClientOriginalName();
-			if (Testimonial::where('id',$request->id)->hasFile('image')) {
-				Storage::delete('/public/img/testimonials/' . $request->hasFile('image'));
-			}
-			$request->image->storeAs('img/testimonials', $filename, 'public');
-		};
+		$this->Validation($request);
 
-		Testimonial::where('id', $request->id)->update([
-			'author' => $request->author,
-			'company' => $request->company,
-			'description' => $request->description,
-			'image' => $request->image
+		$image = $request->image;
+		$img = $image->getClientOriginalName();
+		
+		if ($request->file('image')) {
+			$image = $request->file('image')->storeAs('img/testimonials' , $img , 'public');
+			$testimonials = Testimonial::findOrfail($id);
+            if ($testimonials->image) {
+				Storage::delete('public/' . $testimonials->image);
+				$testimonials->image = $image;
+            } else {
+				$testimonials->image = $image;
+			}
+
+			$testimonials->save();
+		}
+		
+		Testimonial::findOrfail($id)->update([
+			'author' => $request->get('author'),
+			'company' => $request->get('company'),
+			'description' => $request->get('description')
 		]);
 
-		return redirect('/testimonials-page')->with('massage','Data Successfully Edited');
+		return redirect('/testimonials-page')->with('massage','Data Edited Successfully');
 	}
 
 	// Delete data Testimonials

@@ -24,8 +24,18 @@ class AdminController extends Controller
         return view('dashboard.admin-profile');
     }
 
+    private function Validation(Request $request)
+    {
+        $validation = $request->validate([
+            'name' => 'required',
+            'avatar' => 'mimes:png,jpg,jpeg,svg'
+        ]);
+    }
+
     public function upload(Request $request)
     {
+        $this->Validation($request);
+
         if ($request->hasFile('avatar')) {
             $filename = $request->avatar->getClientOriginalName();
             if (auth()->user()->avatar) {

@@ -27,22 +27,33 @@ class ExpertiseController extends Controller
       return view('dashboard.expertise.expertises-add');
     }
 
+    private function Validation(Request $request)
+    {
+      $validation = $request->validate([
+        'title' => 'required',
+        'content' => 'required',
+        'link' => 'required',
+        'image' => 'mimes:png,jpg,jpeg,svg'
+      ]);
+    }
+
     public function store(Request $request) 
     {
+      $this->Validation($request);
 
       $image = $request->image;
       $file = $image->getClientOriginalName();
+      $expertises = $request->file('image')->storeAs('img/expertises' , $file , 'public');
 
       $upload = new Expertise;
       $upload->title = $request->title;
       $upload->content = $request->content;
       $upload->link = $request->link;
-      $upload->image = $file;
+      $upload->image = $expertises;
 
-      $request->file('image')->storeAs('img/expertises', $file, 'public');
       $upload->save();
 
-      return redirect('/expertises-page')->with('massage','Data Successfully Added');
+      return redirect('/expertises-page')->with('massage','Data Created Successfully');
  
     }
 
@@ -56,25 +67,35 @@ class ExpertiseController extends Controller
 	
     }
     
-    public function update(Request $request) 
+    public function update(Request $request, $id) 
     {
-      // update data Expertises
-      if ($request->hasFile('image')) {
-        $img = $request->image;
-        $filename = $img->getClientOriginalName();
-        Storage::delete('/public/img/expertises/' . $request->hasFile('image'));
-        $request->image->storeAs('img/expertises', $filename, 'public');
+      $this->Validation($request);
+
+      $image = $request->image;
+      $file = $image->getClientOriginalName();
+  
+      if ($request->file('image')) {
+        $image = $request->file('image')->storeAs('img/expertises' , $file , 'public');
+        $expertises = Expertise::findOrfail($id);
+        if ($expertises->image) {
+          Storage::delete('public/' . $expertises->image);
+          $expertises->image = $image;
+        } else {
+          $expertises->image = $image;
+        }
+  
+        $expertises->save();
       }
-      Expertise::where('id', $request->id)->update([
-        'title' => $request->title,
-        'content' => $request->content,
-        'link' => $request->link,
-        'image' => $request->image->getClientOriginalName(),
+      
+      Expertise::findOrfail($id)->update([
+        'title' => $request->get('title'),
+        'content' => $request->get('content'),
+        'link' => $request->get('link')
       ]);
   
 
       // alihkan halaman ke halaman expertises-page
-      return redirect('/expertises-page')->with('massage','Data Successfully Edited');
+      return redirect('/expertises-page')->with('massage','Data Edited Successfully');
     
     }
 
