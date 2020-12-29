@@ -46,7 +46,7 @@ Route::get('/testimonials-page', 'TestimonialController@testi')->name('testimoni
 Route::get('/testimonials-add', 'TestimonialController@add')->name('testimonials.add');
 Route::post('/testimonials-store', 'TestimonialController@testistore')->name('testimonials.store');
 Route::get('/testimonials-edit/{id}', 'TestimonialController@edit')->name('testimonials.edit');
-Route::post('/testimonials-update', 'TestimonialController@update')->name('testimonials.update');
+Route::post('/testimonials-update/{id}', 'TestimonialController@update')->name('testimonials.update');
 Route::get('/testimonials-delete/{id}', 'TestimonialController@delete')->name('testimonials.delete');
 Route::get('/testimonials-search', 'TestimonialController@search')->name('testimonials.search');
 // Dashboard Expertise
@@ -54,14 +54,14 @@ Route::get('/expertises-page', 'ExpertiseController@index')->name('expertises.pa
 Route::get('/expertises-add', 'ExpertiseController@add')->name('expertises.add');
 Route::post('/expertises-store', 'ExpertiseController@store')->name('expertises.store');
 Route::get('/expertises-edit/{id}', 'ExpertiseController@edit')->name('expertises.edit');
-Route::post('/expertises-update', 'ExpertiseController@update')->name('expertises.update');
+Route::post('/expertises-update/{id}', 'ExpertiseController@update')->name('expertises.update');
 Route::get('/expertises-delete/{id}','ExpertiseController@delete')->name('expertises.delete');
 // Dashboard Cases
 Route::get('/cases-page', 'CasesController@index')->name('cases-page');
 Route::get('/cases-add', 'CasesController@add')->name('cases-add');
 Route::post('/cases-store', 'CasesController@store')->name('cases-store');
 Route::get('/cases-edit/{id}', 'CasesController@edit')->name('cases-edit');
-Route::post('/cases-update', 'CasesController@update')->name('cases-update');
+Route::post('/cases-update/{id}', 'CasesController@update')->name('cases-update');
 Route::get('/cases-delete/{id}', 'CasesController@delete')->name('cases-delete');
 // Admin Auth
 Route::prefix('admin')->group(function () {
