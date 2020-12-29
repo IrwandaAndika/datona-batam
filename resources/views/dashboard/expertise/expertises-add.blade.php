@@ -33,19 +33,42 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                       <label for="title">Title</label>
-                      <input type="text" class="form-control" id="title" name="title" placeholder="Inserta Title" aria-describedby="emailHelp">
+                      <input @error('title') class="form-control is-invalid" @enderror type="text" class="form-control" id="title" name="title" placeholder="Inserta Title" aria-describedby="emailHelp">
+                      @error('title')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <div class="form-group">
-                        <label for="content">Content</label>
-                        <textarea class="form-control" id="content" name="content" rows="3" placeholder="Insert Content"></textarea>
+                      <label for="content">Content</label>
+                      <textarea @error('content') class="form-control is-invalid" @enderror class="form-control" id="content" name="content" rows="3" placeholder="Insert Content"></textarea>
+                      @error('content')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label for="image">Image</label>
-                      <input type="file" class="form-control" id="image" name="image" placeholder="Insert image">
+                      <div class="custom-file">
+                        <input @error('image') class="form-control is-invalid" @enderror type="file" name="image" class="custom-file-input" id="image">
+                        <label class="custom-file-label" for="image">Choose an Image</label>
+                        @error('image')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
                     </div>
                     <div class="form-group">
-                        <label for="link">Link</label>
-                        <input type="text" class="form-control" id="link" name="link" placeholder="Inserta Link">
+                      <label for="link">Link</label>
+                      <input @error('link') class="form-control is-invalid" @enderror type="text" class="form-control" id="link" name="link" placeholder="Inserta Link">
+                      @error('link')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -34,11 +34,23 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>
-                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Name">
+                        <input @error('name') class="form-control is-invalid" @enderror type="text" name="name" class="form-control" value="{{ old('name') . Auth::user()->name }}" id="exampleInputEmail1" placeholder="Name">
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Avatar</label>
-                        <input type="file" name="avatar" class="form-control" id="exampleInputPassword1" placeholder="Avatar">
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="exampleInputPassword1">Avatar</label>
+                            <input @error('avatar') class="form-control is-invalid" @enderror type="file" name="avatar" class="custom-file-input" value="{{ old('avatar') . Auth::user()->avatar }}" id="exampleInputPassword1" placeholder="Avatar">
+                            @error('avatar')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <!-- /.card-body -->

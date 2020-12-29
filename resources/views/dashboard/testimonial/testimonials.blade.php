@@ -28,21 +28,16 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                @if (session('massage'))
-                  <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5 class="mt-2"><i class="icon fas fa-check"></i>{{ session('massage') }}</h5>
-                  </div>
-                @endif
-                <a href="{{ route('testimonials.add') }}" type="button" class="btn btn-primary float-right"><i class="fas fa-plus-circle"></i> Add More Testimonial</a>
-                <form class="form-inline ml-3 mt-2" action="/testimonials-search" method="GET">
-                  <div class="input-group input-group-sm">
-                    <input class="form-control form-control" name="cari" type="search" placeholder="Search Testimonials" aria-label="Search" value="{{ old('cari') }}">
-                    <div class="input-group-append">
-                      <button class="btn btn-navbar" type="submit" value="CARI">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
+                @include('layouts.alert')
+                <a href="{{ route('testimonials.add') }}" type="button" class="btn btn-primary float-right"><i class="fas fa-plus-circle"></i> Create More Testimonial</a>
+                <form action="/testimonials-search" method="GET">
+                  <div class="input-group col-sm-6">
+                      <input type="search" class="form-control form-control-md" name="cari" placeholder="Search here..." value="{{ old('cari') }}">
+                      <div class="input-group-append">
+                          <button type="submit" value="CARI" class="btn btn-md btn-default">
+                              <i class="fa fa-search"></i>
+                          </button>
+                      </div>
                   </div>
                 </form>
                 <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4 pt-3"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
@@ -59,13 +54,13 @@
                   <tbody>
                     <tr role="row" class="odd">
                       <td class="dtr-control sorting_1" tabindex="0">{{ $t->author }}</td>
-                      <td class="">{{ $t->company }}</td>
+                      <td>{{ $t->company }}</td>
                       <td>{{ $t->description }}</td>
-                      <td>{{ $t->image }}</td>
-                      <td>
-                        <a href="/testimonials-edit/{{ $t->id }}" type="button" class="btn btn-success"><i class="far fa-edit"></i> Edit</a><br>
+                      <td class="align-middle"><img src="{{asset('storage/' . $t->image)}}" width="100px" height="100px"></td>
+                      <td class="align-middle">
+                        <a href="/testimonials-edit/{{ $t->id }}" type="button" class="btn btn-success btn-sm"><i class="far fa-edit"></i> Edit</a><br>
                           <br>
-                        <a href="/testimonials-delete/{{ $t->id }}" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</a>
+                        <a href="/testimonials-delete/{{ $t->id }}" type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>
                       </td>
                     </tr>
                   </tbody>    

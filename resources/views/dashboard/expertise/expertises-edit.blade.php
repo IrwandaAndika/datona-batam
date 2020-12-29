@@ -30,26 +30,34 @@
             <!-- /.card-header -->
             @foreach ($expertises as $ex)
             <div class="card-body">
-              <form action="{{ route('expertises.update') }}" method="post" enctype="multipart/form-data">
+              <form action="{{ route('expertises.update', $ex->id) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                   <input type="hidden" name="id" value="{{ $ex->id }}">
                 </div>
                 <div class="form-group">
                   <label for="title">Title</label>
-                  <input type="text" class="form-control" id="title" name="title" placeholder="Inserta Title" value="{{ $ex->title }}" aria-describedby="emailHelp">
+                  <input type="text" class="form-control" id="title" name="title" placeholder="Inserta Title" value="{{ old('title') . $ex->title }}" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <textarea class="form-control" id="content" name="content" rows="3" placeholder="Content">{{ $ex->content }}</textarea>
+                    <textarea class="form-control" id="content" name="content" rows="3" placeholder="Content">{{ old('content') . $ex->content }}</textarea>
                 </div>
                 <div class="form-group">
                   <label for="image">Image</label>
-                  <input type="file" class="form-control" id="image" name="image" placeholder="Inserta Image" value="{{ $ex->image }}">
+                  <div class="custom-file">
+                    <label class="custom-file-label" for="image">Image</label>
+                    <input type="file" class="custom-file-input" id="image" name="image" placeholder="Inserta Image" value="{{ old('image') . $ex->image }}">
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="link">Link</label>
-                  <input type="text" class="form-control" id="link" name="link" placeholder="Insert Link" value="{{ $ex->link }}">
+                  <input type="text" class="form-control" id="link" name="link" placeholder="Insert Link" value="{{ old('link') . $ex->link }}">
+                </div>
+                <div class="form-group">
+                  <div class="form-group">
+                    <img class="img-thumbnail" src="{{ asset('storage/'. $ex->image) }}" width="30%" alt="">
+                  </div>
                 </div>
             </div>
             <div class="modal-footer">

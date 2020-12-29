@@ -28,13 +28,8 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              @if (session('massage'))
-                <div class="alert alert-success alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                  <h5 class="mt-2"><i class="icon fas fa-check"></i>{{ session('massage') }}</h5>
-                </div>
-              @endif
-              <a href="{{ route('expertises.add') }}" type="button" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add More Expertise</a>
+              @include('layouts.alert')
+              <a href="{{ route('expertises.add') }}" type="button" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Create More Expertise</a>
               <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4 pt-3"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
                 <thead>
                   <tr>
@@ -49,13 +44,13 @@
                 <tbody>
                   <tr role="row" class="odd">
                     <td class="dtr-control sorting_1" tabindex="0">{{ $e->title }}</td>
-                    <td class="">{!! $e->content !!}</td>
-                    <td class="">{{ $e->image }}</td>
+                    <td>{!! $e->content !!}</td>
+                    <td><img src="{{ asset('storage/' . $e->image) }}" width="100px" height="100px"></td>
                     <td>{{ $e->link }}</td>
-                    <td>
-                      <a href="/expertises-edit/{{ $e->id }}" type="button" class="btn btn-success"><i class="far fa-edit"></i> Edit</a><br>
+                    <td class="margin-auto align-middle">
+                      <a href="/expertises-edit/{{ $e->id }}" type="button" class="btn btn-success btn-sm"><i class="far fa-edit"></i> Edit</a><br>
                         <br>
-                      <a href="/expertises-delete/{{ $e->id }}" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</a>
+                      <a href="/expertises-delete/{{ $e->id }}" type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>
                     </td>
                   </tr>
                   </tbody>    

@@ -33,21 +33,43 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                       <label for="author">Author</label>
-                      <input type="text" class="form-control" id="author" name="author" placeholder="Inserta Author Name" aria-describedby="emailHelp">
+                      <input type="text" class="form-control @error('author') is-invalid @enderror" id="author" name="author" value="{{ old('author') }}" placeholder="Inserta Author Name" aria-describedby="emailHelp">
+                      @error('author')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label for="company">Company</label>
-                      <input type="text" class="form-control" id="company" name="company" placeholder="Inserta Company Name">
+                      <input type="text" class="form-control @error('description') is-invalid @enderror" id="company" name="company" value="{{ old('company') }}" placeholder="Inserta Company Name">
+                      @error('company')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label for="description">Description</label>
-                      <textarea class="form-control" id="description" name="description" rows="3" placeholder="description"></textarea>
+                      <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3" value="{{ old('description') }}" placeholder="description"></textarea>
+                      @error('description')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label for="image">Image</label>
-                      <input type="file" class="form-control" id="image" name="image" placeholder="Insert image">
+                      <div class="custom-file">
+                        <input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror" id="image">
+                        <label class="custom-file-label" for="image">Choose an Image</label>
+                        @error('image')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
                     </div>
-                </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="submit" class="btn btn-primary">Save</button>

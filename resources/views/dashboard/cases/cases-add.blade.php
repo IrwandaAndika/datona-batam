@@ -33,23 +33,46 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                       <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Insert Name" aria-describedby="emailHelp">
+                      <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Insert Name" aria-describedby="emailHelp">
+                      @error('name')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label for="description">Description</label>
-                      <input type="text" class="form-control" id="description" name="description" placeholder="Insert Description">
+                      <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" value="{{ old('description') }}" placeholder="Insert Description">
+                      @error('description')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleSelectBorder">Type</label>
-                        <select class="custom-select form-control-border" name="type_id" id="exampleSelectBorder">
-                          <option value="1">HR Management</option>
-                          <option value="2">Industrial Relation</option>
-                          <option value="3">Jobs</option>
-                        </select>
+                      <label for="exampleSelectBorder">Type</label>
+                      <select class="custom-select form-control-border @error('type_id') is-invalid @enderror" name="type_id" id="exampleSelectBorder">
+                        <option value="1">HR Management</option>
+                        <option value="2">Industrial Relation</option>
+                        <option value="3">Jobs</option>
+                      </select>
+                      @error('type_id')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <div class="form-group">
-                        <label for="content">Content</label>
-                        <input type="file" class="form-control" id="content" name="content" placeholder="Insert image">
+                      <label for="image">Content</label>
+                      <div class="custom-file">
+                        <input type="file" name="content" class="custom-file-input @error('content') is-invalid @enderror" value="{{ old('content') }}" id="content">
+                        <label class="custom-file-label" for="image">Choose an Image</label>
+                        @error('content')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
                     </div>
                 </div>
                 <div class="modal-footer">

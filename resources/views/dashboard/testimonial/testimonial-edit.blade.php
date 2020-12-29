@@ -30,26 +30,34 @@
             <!-- /.card-header -->
             @foreach ($testimonials as $t)
             <div class="card-body">
-              <form action="{{ route('testimonials.update') }}" method="post">
+              <form action="{{ route('testimonials.update', $t->id) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                   <input type="hidden" name="id" value="{{ $t->id }}">
                 </div>
                 <div class="form-group">
                   <label for="author">Author</label>
-                  <input type="text" class="form-control" id="author" name="author" placeholder="Inserta Author Name" value="{{ $t->author }}" aria-describedby="emailHelp">
+                  <input type="text" class="form-control" id="author" name="author" placeholder="Inserta Author Name" value="{{ old('author') . $t->author }}" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                   <label for="company">Company</label>
-                  <input type="text" class="form-control" id="company" name="company" placeholder="Inserta Company Name" value="{{ $t->company }}">
+                  <input type="text" class="form-control" id="company" name="company" placeholder="Inserta Company Name" value="{{ old('company') . $t->company }}">
                 </div>
                 <div class="form-group">
                   <label for="description">Description</label>
-                  <textarea class="form-control" id="description" name="description" rows="3" placeholder="description">{{ $t->description }}</textarea>
+                  <textarea class="form-control" id="description" name="description" rows="3" placeholder="description">{{ old('description') . $t->description }}</textarea>
                 </div>
                 <div class="form-group">
                   <label for="image">Image</label>
-                  <input type="file" class="form-control" id="image" name="image" placeholder="Insert Image" value="{{ $t->image }}">
+                  <div class="custom-file">
+                    <label class="custom-file-label" for="image">Image</label>
+                    <input type="file" class="custom-file-input" id="image" name="image" placeholder="Insert Image" value="{{ old('image') . $t->image }}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-group">
+                    <img class="img-thumbnail" src="{{ asset('storage/'. $t->image) }}" width="30%" alt="">
+                  </div>
                 </div>
             </div>
             <div class="modal-footer">

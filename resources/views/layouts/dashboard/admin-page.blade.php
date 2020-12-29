@@ -329,6 +329,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery -->
 <script src="{{asset('AdminLTE/plugins/jquery/jquery.min.js')}}"></script>
+<script>
+  $(document).ready(function () {
+    $(document).on('change' , '#image' , function () {
+      let image = $('#image').val()
+      $('.custom-file-label').text(image)
+    });
+  });
+</script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->

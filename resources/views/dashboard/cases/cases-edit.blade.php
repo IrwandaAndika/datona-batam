@@ -30,30 +30,38 @@
             <!-- /.card-header -->
             @foreach ($cases as $c)
             <div class="card-body">
-              <form action="{{ route('cases-update') }}" method="post">
+              <form action="{{ route('cases-update', $c->id) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                   <input type="hidden" name="id" value="{{ $c->id }}">
                 </div>
                 <div class="form-group">
                   <label for="name">Name</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="Inserta Name" value="{{ $c->name }}" aria-describedby="emailHelp">
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Insert Name" value="{{ old('name') . $c->name }}" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                   <label for="description">Description</label>
-                  <input type="text" class="form-control" id="dercription" name="description" placeholder="Inserta Description" value="{{ $c->description }}">
+                  <input type="text" class="form-control" id="description" name="description" placeholder="Insert Description" value="{{ old('description') . $c->description }}">
                 </div>
                 <div class="form-group">
                     <label for="exampleSelectBorder">Type</label>
-                    <select class="custom-select form-control-border" name="type_id" id="exampleSelectBorder" value="{{ $c->type_id }}">
+                    <select class="custom-select form-control-border" name="type_id" id="exampleSelectBorder" value="{{ old('type_id') . $c->type_id }}">
                       <option value="1">HR Management</option>
                       <option value="2">Industrial Relation</option>
                       <option value="3">Jobs</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="content">Content</label>
-                    <input type="file" class="form-control" id="content" name="content" placeholder="Insert image">
+                  <label for="content">Content</label>
+                  <div class="custom-file">
+                    <label class="custom-file-label" for="content">Content</label>
+                    <input type="file" class="custom-file-input" id="content" name="content" value="{{ old('content') . $c->content }}" placeholder="Insert image">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-group">
+                    <img class="img-thumbnail" src="{{ asset('storage/'. $c->content) }}" width="30%" alt="">
+                  </div>
                 </div>
             </div>
             <div class="modal-footer">

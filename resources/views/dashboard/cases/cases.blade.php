@@ -28,13 +28,8 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              @if (session('massage'))
-                <div class="alert alert-success alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                  <h5 class="mt-2"><i class="icon fas fa-check"></i>{{ session('massage') }}</h5>
-                </div>
-              @endif
-              <a href="{{ route('cases-add') }}" type="button" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add More Cases</a>
+              @include('layouts.alert')
+              <a href="{{ route('cases-add') }}" type="button" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Create More Cases</a>
               <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4 pt-3"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
                 <thead>
                   <tr>
@@ -49,13 +44,13 @@
                 <tbody>
                   <tr role="row" class="odd">
                     <td class="dtr-control sorting_1" tabindex="0">{{ $c->name }}</td>
-                    <td class="">{{ $c->description }}</td>
-                    <td class="">{{ $c->type_id }}</td>
-                    <td class="">{{ $c->content }}</td>
-                    <td>
-                      <a href="/cases-edit/{{ $c->id }}" type="button" class="btn btn-success"><i class="far fa-edit"></i> Edit</a><br>
+                    <td>{{ $c->description }}</td>
+                    <td>{{ $c->type_id }}</td>
+                    <td class="d-flex justify-content-center"><img src="{{ asset('storage/' . $c->content) }}" width="100px" height="100px"></td>
+                    <td class="align-middle">
+                      <a href="/cases-edit/{{ $c->id }}" type="button" class="btn btn-success btn-sm"><i class="far fa-edit"></i> Edit</a><br>
                         <br>
-                      <a href="/cases-delete/{{ $c->id }}" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</a>
+                      <a href="/cases-delete/{{ $c->id }}" type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>
                     </td>
                   </tr>
                   </tbody>    
