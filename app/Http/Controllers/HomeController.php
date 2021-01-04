@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ContactUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -69,6 +70,22 @@ class HomeController extends Controller
     public function contact()
     {
         return view('contact');
+    }
+
+    public function storeContact(Request $request)
+    {
+        $contact = new ContactUs;
+        $contact->title = $request->title;
+        $contact->email = $request->email;
+        $contact->message = $request->message;
+
+        $contact->save();
+
+        if (isset($contact)){
+        return view('contact');
+        } else {
+        return redirect()->back();
+        }
     }
 
     public function gallery()

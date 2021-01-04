@@ -41,6 +41,8 @@ Route::get('/gallery', 'HomeController@gallery')->name('gallery');
 Route::get('/gallery/government', 'HomeController@gallery')->name('gallery.government');
 Route::get('/gallery/private', 'HomeController@gallery')->name('gallery.private');
 Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+// Contact-Us
+Route::post('/contact-us/store', 'HomeController@storeContact')->name('contact-store');
 // Dashboard Testimonials
 Route::get('/testimonials-page', 'TestimonialController@testi')->name('testimonials.page');
 Route::get('/testimonials-add', 'TestimonialController@add')->name('testimonials.add');
