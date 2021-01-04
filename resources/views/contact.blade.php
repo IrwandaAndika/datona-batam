@@ -23,23 +23,23 @@
         <div class="col-lg-8">
 
             <h2 class="font-weight-bold text-color-dark">- Send a Message</h2>
-
-            <form id="contactForm" class="contact-form custom-contact-form-style-1" action="php/contact-form.php" method="POST">
-                <div class="contact-form-success alert alert-success d-none mt-4" id="contactSuccess">
+              
+            <form id="contactForm" class="contact-form custom-contact-form-style-1" action="{{ route('contact-store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="contact-form-error alert alert-success d-none mt-4" id="contactError">
                     <strong>Success!</strong> Your message has been sent to us.
-                </div>
-
-                <div class="contact-form-error alert alert-danger d-none mt-4" id="contactError">
-                    <strong>Error!</strong> There was an error sending your message.
+                </div> 
+                {{-- <div class="contact-form-success alert alert-success d-none mt-4" id="contactError">
+                    <strong>Success!</strong> Your message has been sent to us.
                     <span class="mail-error-message text-1 d-block" id="mailErrorMessage"></span>
-                </div>
+                </div> --}}
 
                 <input type="hidden" name="subject" value="Contact Message Received" />
                 <div class="form-row">
                     <div class="form-group col">
                         <div class="custom-input-box">
                             <i class="icon-user icons text-color-primary"></i>
-                            <input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control" name="name" id="name" placeholder="Name*" required>
+                            <input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control" name="title" id="name" placeholder="Name*" required>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col">
-                        <input type="submit" value="Submit Now" class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase mb-4" data-loading-text="Loading...">
+                        <input type="submit" value="Submit Now" class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase mb-4">
                     </div>
                 </div>
             </form>
