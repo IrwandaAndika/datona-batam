@@ -64,7 +64,7 @@
                             <td class="text-center">{{ $c->email }}</td>
                             <td class="text-center">{{ $c->created_at->diffForHumans() }}</td>
                             <td class="align-middle">
-                                <a href="/inbox-delete/{{ $c->id }}" type="button" method="delete" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                                <a href="{{ route('admin.inbox.delete', $c->id) }}" type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
                             </td>
                             </tr>
                         </tbody>    

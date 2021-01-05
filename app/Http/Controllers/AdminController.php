@@ -74,7 +74,7 @@ class AdminController extends Controller
 
     public function delete($id)
     {
-        ContactUs::where('id',$id)->delete();
+        ContactUs::destroy($id);
         return redirect()->route('admin.inbox');
     }
 
