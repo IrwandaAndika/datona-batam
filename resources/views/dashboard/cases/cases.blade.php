@@ -47,7 +47,7 @@
                     <td>{{ $c->description }}</td>
                     <td>{{ $c->type_id }}</td>
                     <td class="d-flex justify-content-center"><img src="{{ asset('storage/' . $c->content) }}" width="100px" height="100px"></td>
-                    <td class="align-middle">
+                    <td class="align-middle text-center">
                       <a href="/cases-edit/{{ $c->id }}" type="button" class="btn btn-success btn-sm"><i class="far fa-edit"></i> Edit</a><br>
                         <br>
                       <a href="/cases-delete/{{ $c->id }}" type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>

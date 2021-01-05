@@ -57,7 +57,7 @@
                       <td>{{ $t->company }}</td>
                       <td>{{ $t->description }}</td>
                       <td class="align-middle"><img src="{{asset('storage/' . $t->image)}}" width="100px" height="100px"></td>
-                      <td class="align-middle">
+                      <td class="align-middle text-center">
                         <a href="/testimonials-edit/{{ $t->id }}" type="button" class="btn btn-success btn-sm"><i class="far fa-edit"></i> Edit</a><br>
                           <br>
                         <a href="/testimonials-delete/{{ $t->id }}" type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>

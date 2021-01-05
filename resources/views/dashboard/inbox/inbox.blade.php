@@ -58,14 +58,14 @@
                         </thead>
                         @foreach ($contact as $c)
                         <tbody>
-                            <tr role="row" class="odd">
-                            <td class="text-center" tabindex="0">{{ $c->title }}</td>
-                            <td class="text-justify">{{ $c->message }}</td>
-                            <td class="text-center">{{ $c->email }}</td>
-                            <td class="text-center">{{ $c->created_at->diffForHumans() }}</td>
-                            <td class="align-middle">
-                                <a href="{{ route('admin.inbox.delete', $c->id) }}" type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
-                            </td>
+                            <tr role="row" class="odd mx-auto">
+                                <td class="text-center" tabindex="0">{{ $c->title }}</td>
+                                <td class="text-justify">{{ $c->message }}</td>
+                                <td class="text-center">{{ $c->email }}</td>
+                                <td class="text-center">{{ $c->created_at->diffForHumans() }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('admin.inbox.delete', $c->id) }}" type="button" class="btn btn-danger btn-sm center-block">Delete <i class="far fa-trash-alt"></i></a>
+                                </td>
                             </tr>
                         </tbody>    
                         @endforeach
