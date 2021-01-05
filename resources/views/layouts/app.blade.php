@@ -138,6 +138,14 @@
                                                 <form id="user-logout-form" action="{{ route('user.logout') }}" method="GET" style="...">
                                                     @csrf
                                                 </form>
+                                                @else 
+                                                <a class="dropdown-item" href="{{ route('login') }}">
+                                                    <i class="fas fa-sign-out-alt"></i> {{ _('Login') }}
+                                                </a>
+                
+                                                <form id="user-login-form" action="{{ route('login') }}" method="GET" style="...">
+                                                    @csrf
+                                                </form>
                                                 @endif
                                             </li> 
                                         </ul>

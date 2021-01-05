@@ -71,6 +71,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::get('/profile', 'AdminController@profile')->name('admin.dashboard.profile');
     Route::post('/upload', 'AdminController@upload')->name('admin.dashboard.upload');
+    // Inbox
+    Route::get('/inbox', 'AdminController@showInbox')->name('admin.inbox');
+    Route::get('/inbox-search', 'AdminController@search')->name('admin.inbox.search');
+    Route::get('/inbox-delete/{id}', 'AdminController@delete')->name('admin.inbox.delete');
     // Login Route
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');

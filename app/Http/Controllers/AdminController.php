@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Admins;
 use App\Admin;
+use App\ContactUs;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
@@ -50,4 +52,30 @@ class AdminController extends Controller
         
         return redirect()->route('admin.dashboard');
     }
+
+    public function showInbox()
+    {
+        $contact = ContactUs::paginate(8);
+        return view('dashboard.inbox.inbox', compact('contact'));
+    }
+
+    public function search(Request $request)
+	{
+		// menangkap data pencarian
+		$search = $request->search;
+ 
+    	// mengambil data dari table contact_us sesuai pencarian data
+		$contact = ContactUs::where('title','like',"%".$search."%")->paginate();
+ 
+    	// mengirim data contact_us ke view index
+		return view('dashboard.inbox.inbox', compact('contact'));
+ 
+    }
+
+    public function delete($id)
+    {
+        ContactUs::where('id',$id)->delete();
+        return redirect()->route('admin.inbox');
+    }
+
 }
