@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </a>
                   <hr>
                   <a class="dropdown-item text-center" href="{{ route('admin.logout') }}">
-                    <i class="fas fa-sign-out-alt"></i> {{ _('logout') }}
+                    <i class="fas fa-sign-out-alt"></i> Logout
                   </a>
                   <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="GET">
                       @csrf
