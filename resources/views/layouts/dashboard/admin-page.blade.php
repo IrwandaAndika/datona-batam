@@ -44,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" aria-labelledby="navbarDropdown">
               <a href="#" class="dropdown-item">
                   <a class="dropdown-item text-center" href="{{ route('admin.dashboard.profile') }}">
-                    <i class="fas fa-user-circle"></i> {{ _('Profile') }}
+                    <i class="fas fa-user-circle"></i> Profile
                   </a>
                   <hr>
                   <a class="dropdown-item text-center" href="{{ route('admin.logout') }}">
