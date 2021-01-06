@@ -44,7 +44,7 @@
                                             <nav class="collapse">
                                                 <ul class="nav nav-pills" id="mainNav">
                                                     <li>
-                                                        <a class="nav-link {{ set_active('home') }}" href="{{ url('/home') }}">
+                                                        <a class="nav-link {{ set_active('home') }}" href="{{ route('home') }}">
                                                         Home
                                                         </a>
                                                     </li>
@@ -132,7 +132,7 @@
                                             <li>
                                                 @if (\Illuminate\Support\Facades\Auth::guard('web')->check())
                                                 <a class="dropdown-item" href="{{ route('user.logout') }}">
-                                                    <i class="fas fa-sign-out-alt"></i> {{ _('logout') }}
+                                                    <i class="fas fa-sign-out-alt"></i> Logout
                                                 </a>
                 
                                                 <form id="user-logout-form" action="{{ route('user.logout') }}" method="GET" style="...">

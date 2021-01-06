@@ -20,13 +20,13 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/about-us', 'HomeController@about')->name('about');
 Route::get('/expertise', 'HomeController@expertise')->name('expertise');
 Route::get('/expertise/human-resource-management', 'HomeController@hcm')->name('expertise.hcm');
