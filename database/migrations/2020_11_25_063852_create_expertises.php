@@ -16,9 +16,9 @@ class CreateExpertises extends Migration
         Schema::create('expertises', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('sub_title');
             $table->text('content');
             $table->string('image');
+            $table->string('link');
             $table->timestamps();
         });
     }
