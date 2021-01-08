@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ContactUs;
+use App\Testimonial;
+use App\Cases;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -25,7 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $testimonials = DB::table('testimonials')->get();
+        $cases = DB::table('cases')->get();
+        return view('home', ['testimonials' => $testimonials], ['cases' => $cases]);
     }
 
     public function about()
