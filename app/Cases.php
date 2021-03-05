@@ -8,7 +8,7 @@ class Cases extends Model
 {
     protected $table = 'cases';
     protected $primaryKey = 'id';
-    protected $fillable = ['id','name','type_id','content'];
+    protected $fillable = ['id','name','description','type_id','content'];
 
     public function type()
     {
