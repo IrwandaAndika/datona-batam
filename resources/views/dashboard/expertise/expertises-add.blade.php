@@ -61,15 +61,6 @@
                         @enderror
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label for="link">Link</label>
-                      <input @error('link') class="form-control is-invalid" @enderror type="text" class="form-control" id="link" name="link" placeholder="Inserta Link">
-                      @error('link')
-                        <div class="invalid-feedback">
-                          {{ $message }}
-                        </div>
-                      @enderror
-                    </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

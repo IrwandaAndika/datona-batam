@@ -51,10 +51,6 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="link">Link</label>
-                  <input type="text" class="form-control" id="link" name="link" placeholder="Insert Link" value="{{ old('link') . $ex->link }}">
-                </div>
-                <div class="form-group">
                   <div class="form-group">
                     <img class="img-thumbnail" src="{{ asset('storage/'. $ex->image) }}" width="30%" alt="">
                   </div>

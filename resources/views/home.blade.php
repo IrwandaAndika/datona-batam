@@ -264,7 +264,7 @@
                 <a href="datona-hr-consulting-cases-detail.html" class="text-decoration-none">
                     <span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
                         <span class="thumb-info-wrapper m-0">
-                            <img src="{{ asset('storage/'. $c->content) }}" class="img-fluid" alt="">
+                            <img src="{{ asset('storage/'. $c->content) }}" class="img-fluid" style="objext-fit: contain; width: 100%; height: 140px">
                         </span>
                         <span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
                             <span class="custom-thumb-info-title">
