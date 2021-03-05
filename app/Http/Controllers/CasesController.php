@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Cases;
 
@@ -39,19 +37,10 @@ class CasesController extends Controller
     public function store(Request $request)
     {
         $this->Validation($request);
-
-        $content = $request->content;
-        $file = $content->getClientOriginalName();
-        $cases = $request->file('content')->storeAs('img/cases' , $file , 'public');
-
-        $upload = new Cases;
-        $upload->name = $request->name;
-        $upload->description = $request->description;
-        $upload->type_id = $request->type_id;
-        $upload->content = $cases;
-
-        $upload->save();
-
+        $cases = $request->all();
+        $file = $request->content->getClientOriginalName();
+        $cases['content'] = $request->file('content')->storeAs('img/cases' , $file , 'public');
+        Cases::create($cases);
         return redirect('/cases-page')->with('massage','Data Created Successfully');
     }
 
@@ -90,9 +79,9 @@ class CasesController extends Controller
         return redirect('/cases-page')->with('massage','Data Edited Successfully');
     }
 
-    public function delete($id)
+    public function delete(Cases $cases)
     {
-        Cases::where('id',$id)->delete();
+        $cases->delete();
         return redirect('/cases-page');
     }
 }

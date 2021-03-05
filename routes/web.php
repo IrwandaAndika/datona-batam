@@ -47,9 +47,9 @@ Route::post('/contact-us/store', 'HomeController@storeContact')->name('contact-s
 Route::get('/testimonials-page', 'TestimonialController@testi')->name('testimonials.page');
 Route::get('/testimonials-add', 'TestimonialController@add')->name('testimonials.add');
 Route::post('/testimonials-store', 'TestimonialController@testistore')->name('testimonials.store');
-Route::get('/testimonials-edit/{id}', 'TestimonialController@edit')->name('testimonials.edit');
-Route::post('/testimonials-update/{id}', 'TestimonialController@update')->name('testimonials.update');
-Route::get('/testimonials-delete/{id}', 'TestimonialController@delete')->name('testimonials.delete');
+Route::get('/testimonials-edit/{testimonial}', 'TestimonialController@edit')->name('testimonials.edit');
+Route::post('/testimonials-update/{testimonial}', 'TestimonialController@update')->name('testimonials.update');
+Route::get('/testimonials-delete/{testimonial}', 'TestimonialController@delete')->name('testimonials.delete');
 Route::get('/testimonials-search', 'TestimonialController@search')->name('testimonials.search');
 // Dashboard Expertise
 Route::get('/expertises-page', 'ExpertiseController@index')->name('expertises.page');
@@ -57,14 +57,14 @@ Route::get('/expertises-add', 'ExpertiseController@add')->name('expertises.add')
 Route::post('/expertises-store', 'ExpertiseController@store')->name('expertises.store');
 Route::get('/expertises-edit/{id}', 'ExpertiseController@edit')->name('expertises.edit');
 Route::post('/expertises-update/{id}', 'ExpertiseController@update')->name('expertises.update');
-Route::get('/expertises-delete/{id}','ExpertiseController@delete')->name('expertises.delete');
+Route::get('/expertises-delete/{expertise}','ExpertiseController@delete')->name('expertises.delete');
 // Dashboard Cases
 Route::get('/cases-page', 'CasesController@index')->name('cases-page');
 Route::get('/cases-add', 'CasesController@add')->name('cases-add');
 Route::post('/cases-store', 'CasesController@store')->name('cases-store');
 Route::get('/cases-edit/{id}', 'CasesController@edit')->name('cases-edit');
 Route::post('/cases-update/{id}', 'CasesController@update')->name('cases-update');
-Route::get('/cases-delete/{id}', 'CasesController@delete')->name('cases-delete');
+Route::get('/cases-delete/{cases}', 'CasesController@delete')->name('cases-delete');
 // Admin Auth
 Route::prefix('admin')->group(function () {
     // Dashboard Route
@@ -89,4 +89,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
     Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
 });
+
+// Google Login
+Route::get('login/google', 'Auth\LoginController@redirectToGoogle')->name('google-login');
+Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
+
+// Facebook Login
+Route::get('login/facebook', 'Auth\LoginController@redirectToFacebook')->name('facebook-login');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleFacebookCallback');
 

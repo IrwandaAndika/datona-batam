@@ -40,21 +40,11 @@ class TestimonialController extends Controller
 	public function testistore(Request $request) 
 	{
 		$this->Validation($request);
-
-        $image = $request->image;
-		$img = $image->getClientOriginalName();
-		$testimonials = $request->file('image')->storeAs('img/testimonials' , $img , 'public');
-
-        $upload = new Testimonial;
-        $upload->author = $request->author;
-        $upload->company = $request->company;
-        $upload->description = $request->description;
-		$upload->image = $testimonials;
-		
-        $upload->save();
-
+		$testimonial = $request->all();
+		$img = $request->image->getClientOriginalName();
+		$testimonial['image'] = $request->file('image')->storeAs('img/testimonials' , $img , 'public');
+		Testimonial::create($testimonial);
 		return redirect('/testimonials-page')->with('massage','Data Created Successfully');
- 
     }
 
     // method untuk edit data Testimonials
@@ -67,10 +57,7 @@ class TestimonialController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->Validation($request);
-
-		$image = $request->image;
-		$img = $image->getClientOriginalName();
-		
+		$img = $request->image->getClientOriginalName();
 		if ($request->file('image')) {
 			$image = $request->file('image')->storeAs('img/testimonials' , $img , 'public');
 			$testimonials = Testimonial::findOrfail($id);
@@ -83,7 +70,6 @@ class TestimonialController extends Controller
 
 			$testimonials->save();
 		}
-		
 		Testimonial::findOrfail($id)->update([
 			'author' => $request->get('author'),
 			'company' => $request->get('company'),
@@ -94,9 +80,9 @@ class TestimonialController extends Controller
 	}
 
 	// Delete data Testimonials
-	public function delete($id)
+	public function delete(Testimonial $testimonial)
 	{
-		Testimonial::where('id',$id)->delete();
+		$testimonial->delete();
 		return redirect('/testimonials-page');
 	}
 

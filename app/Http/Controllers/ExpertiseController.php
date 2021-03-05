@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Expertise;
 
 class ExpertiseController extends Controller
@@ -32,7 +33,6 @@ class ExpertiseController extends Controller
       $validation = $request->validate([
         'title' => 'required',
         'content' => 'required',
-        'link' => 'required',
         'image' => 'mimes:png,jpg,jpeg,svg'
       ]);
     }
@@ -40,21 +40,12 @@ class ExpertiseController extends Controller
     public function store(Request $request) 
     {
       $this->Validation($request);
-
-      $image = $request->image;
-      $file = $image->getClientOriginalName();
-      $expertises = $request->file('image')->storeAs('img/expertises' , $file , 'public');
-
-      $upload = new Expertise;
-      $upload->title = $request->title;
-      $upload->content = $request->content;
-      $upload->link = $request->link;
-      $upload->image = $expertises;
-
-      $upload->save();
-
+      $expert = $request->all();
+      $file = $request->image->getClientOriginalName();
+      $expert['image'] = $request->file('image')->storeAs('img/expertises' , $file , 'public');
+      $expert['link'] = Str::slug($expert['title']);
+      Expertise::create($expert);
       return redirect('/expertises-page')->with('massage','Data Created Successfully');
- 
     }
 
     public function edit($id) 
@@ -70,6 +61,7 @@ class ExpertiseController extends Controller
     public function update(Request $request, $id) 
     {
       $this->Validation($request);
+      $experts = $request->all();
 
       $image = $request->image;
       $file = $image->getClientOriginalName();
@@ -90,19 +82,15 @@ class ExpertiseController extends Controller
       Expertise::findOrfail($id)->update([
         'title' => $request->get('title'),
         'content' => $request->get('content'),
-        'link' => $request->get('link')
       ]);
-  
 
       // alihkan halaman ke halaman expertises-page
       return redirect('/expertises-page')->with('massage','Data Edited Successfully');
-    
     }
 
-    public function delete($id)
+    public function delete(Expertise $expertise)
     {
-      Expertise::where('id',$id)->delete();
-
+      $expertise->delete();
       return redirect('/expertises-page');
     }
 
